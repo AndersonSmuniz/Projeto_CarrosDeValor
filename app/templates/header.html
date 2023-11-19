@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #fff !important;">
+    <b class="navbar-brand" href="{{ url_for('index') }}">
+        <a class=" p-l-10" style="color: #aa8989;">
+            <img src="{{ url_for('static', filename='Icons/png/logoCar.png') }}" alt="Ícone PNG" style="width: 20%;">
+        </a>
+    </b>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="background-color: #fff !important;">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active" style="margin-right: 10px;">
+            <a class="nav-link h4" href="/index" aria-expanded="false">
+                <span class="hide-menu">Inicio</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" aria-expanded="false">
+                <span class="hide-menu">Favoritos</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="#" aria-expanded="false">
+                <span class="hide-menu">Vender</span>
+            </a>
+        </li>
+        <li class="nav-item">
+         
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Usuário
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Sair</a>
+            <br>
+            <div class="dropdown-divider"></div>
+            
+          </div>
+        </li>
+       </ul> 
+      
+    </div>
+  </nav>
+
+  

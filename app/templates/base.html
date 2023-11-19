@@ -1,51 +1,67 @@
 <!DOCTYPE html>
-<html>
-
+<html dir="ltr" lang="pt-BR">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Flask Auth Example</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>:: Gerenciamento de Estoque :: {% block title %}{% endblock %}</title>
+
+    <link href="{{ url_for('static', filename='dist/css/style.min.css') }}" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/extra-libs/DataTables/datatables.css') }}">
+    {% block css %}{% endblock %}
+    <style>
+        navbar-personalizado{
+            color: #000 !important;
+        }
+    </style>
+
 </head>
 
-<body>
-    <section class="hero is-primary is-fullheight">
+<body style="background-color: #E8F1F0;">
 
-        <div class="hero-head">
-            <nav class="navbar">
-                <div class="container">
+  <div class="preloader">
+      <div class="lds-ripple">
+          <div class="lds-pos"></div>
+          <div class="lds-pos"></div>
+      </div>
+  </div>
+  
+  <div id="main-wrapper">
+  
+      <header class="topbar" style="top: 12px;">
+          {% include 'header.html' %}
+      </header>
+      
+      
+          
+          <div class="container-fluid">
+              {% block conteudo %}{% endblock %}
+          </div>
+          
+          {% include 'footer.html' %}
+          
+   
+ </div>
 
-                    <div id="navbarMenuHeroA" class="navbar-menu">
-                        <div class="navbar-end">
-                            <a href="{{ url_for('index') }}" class="navbar-item">
-                                Home
-                            </a>
-                            <a href="{{ url_for('profile') }}" class="navbar-item">
-                                Profile
-                            </a>
-                            <a href="{{ url_for('login_post') }}" class="navbar-item">
-                                Login
-                            </a>
-                            <a href="{{ url_for('signup_post') }}" class="navbar-item">
-                                Sign Up
-                            </a>
-                            <a href="{{ url_for('logout') }}" class="navbar-item">
-                                Logout
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </div>
+  <script src="{{ url_for('static', filename='assets/libs/jquery/dist/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='dist/js/jquery.ui.touch-punch-improved.js') }}"></script>
+  <script src="{{ url_for('static', filename='dist/js/jquery-ui.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/extra-libs/sparkline/sparkline.js') }}"></script>
+  <script src="{{ url_for('static', filename='dist/js/waves.js') }}"></script>
+  <script src="{{ url_for('static', filename='dist/js/sidebarmenu.js') }}"></script>
+  <script src="{{ url_for('static', filename='dist/js/custom.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/libs/moment/min/moment.min.js') }}"></script>
 
-        <div class="hero-body">
-            <div class="container has-text-centered">
-               {% block content %}
-               {% endblock %}
-            </div>
-        </div>
-    </section>
+<script type='text/javascript' charset='utf8' src="{{ url_for('static', filename='assets/extra-libs/DataTables/datatables.js') }}"></script>
+
+
+    {% block js %}{% endblock %}
+
 </body>
-
 </html>

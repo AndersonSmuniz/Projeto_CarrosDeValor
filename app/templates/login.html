@@ -1,36 +1,115 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html dir="ltr" lang="pt-BR">
 
-{% block content %}
-<div class="column is-4 is-offset-4">
-    <h3 class="title">Login</h3>
-    <div class="box">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <div class="notification is-danger">
-            {{ messages[0] }}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title></title>
+
+    <link href="{{ url_for('static', filename='dist/css/style.min.css') }}" rel="stylesheet">
+
+    <style>
+        .card-login {
+            width: 40rem !important;
+            height: 40rem !important;
+            background-color: #6FB9BE !important;
+            border-radius: 30px;
+            box-shadow: 3px 10px 4.8px 0px rgba(0, 0, 0, 0.28)
+        }
+        .border-input{
+            border-radius: 15px;
+        }
+        .botao-entrar{
+            display:flex !important;
+            align-items: center!important;
+            justify-content: center!important;
+        }
+        .btn-principal{
+            width: 12rem;
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            background-color: rgb(65, 65, 223);
+        }
+        .btn-secundario{
+            width: 12rem;
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            background-color: rgb(233, 101, 92);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
         </div>
-        {% endif %}
-        {% endwith %}
-        <form method="POST" action="/login">
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="email" name="email" placeholder="Your Email" autofocus="">
-                </div>
-            </div>
-
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="password" name="password" placeholder="Your Password">
-                </div>
-            </div>
-            <div class="field">
-                <label class="checkbox">
-                    <input type="checkbox">
-                    Remember me
-                </label>
-            </div>
-            <button class="button is-block is-info is-large is-fullwidth">Login</button>
-        </form>
     </div>
-</div>
-{% endblock %}
+
+    <div class="auth-wrapper d-flex no-block justify-content-center align-items-center"
+        style="background-color: #E8F1F0">
+        <div class="auth-box card-login border-secondary">
+            <div id="loginform">
+                <div class="text-center p-5 p-b-20">
+                    <span class="logo-icon"><img src="{{ url_for('static', filename='Icons/png/LogoCar.png') }}"
+                            alt="logo" width="60%">
+                        <br></span>
+                </div>
+                <!-- Form -->
+                <form class="form-horizontal m-t-20" id="loginform" action="/login" method="post">
+                    <div class="row p-b-30">
+                        <div class="col-12">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control form-control-lg border-input" placeholder="Email"
+                                    aria-label="Email" aria-describedby="basic-addon1" required="">
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="password" class="form-control form-control-lg  border-input" placeholder="Senha"
+                                    aria-label="Senha" aria-describedby="basic-addon1" required="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 botao-entrar">
+                            <div class="">
+                                <div class="p-t-20">
+                                    <button class="btn btn-principal" type="submit">Login</button>
+                                </div>
+                                <div class="p-t-20">
+                                    <a href="/signup" class="btn btn-secundario" type="submit">Cadastar-se</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='assets/libs/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='dist/js/jquery.ui.touch-punch-improved.js') }}"></script>
+    <script src="{{ url_for('static', filename='dist/js/jquery-ui.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script
+        src="{{ url_for('static', filename='assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/extra-libs/sparkline/sparkline.js') }}"></script>
+    <script src="{{ url_for('static', filename='dist/js/waves.js') }}"></script>
+    <script src="{{ url_for('static', filename='dist/js/sidebarmenu.js') }}"></script>
+    <script src="{{ url_for('static', filename='dist/js/custom.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/libs/moment/min/moment.min.js') }}"></script>
+
+</body>
+
+</html>
