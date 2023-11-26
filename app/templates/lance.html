@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Detalhes do Carro
+{% endblock %}
+
+{% block css %}
+<style>
+  navbar-personalizado {
+    color: #000 !important;
+  }
+
+  .container-fluid {
+    margin-top: 5%;
+  }
+
+  .card-veiculo {
+    width: 100%;
+    max-width: 25rem;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    filter: drop-shadow(5px 7px 4px rgba(0, 0, 0, 0.25));
+  }
+
+  .card-veiculo img {
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px 15px 0px 0px;
+  }
+
+  .card-veiculo .card-body {
+    padding: 10px;
+  }
+
+  .card-veiculo h5 {
+    margin-bottom: 10px;
+    color: hsl(356, 63%, 71%);
+  }
+
+  .card-veiculo {
+    color: #103C45;
+
+  }
+
+  .card-veiculo span {
+    display: block;
+    margin-bottom: 5px;
+    color: #6FB9BE;
+  }
+
+  .card-veiculo .preco {
+    font-weight: bold;
+  }
+
+  .card-veiculo .negociavel {
+    color: green;
+  }
+
+  .card-veiculo .nao-negociavel {
+    color: red;
+  }
+
+  .btn {
+    border: none;
+    padding: 10px 24px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+  }
+
+  .fill {
+    background: #CCDADB;
+    color: #103C45;
+    filter: drop-shadow(0);
+    font-weight: bold;
+    transition: all .3s ease;
+  }
+
+  .fill:hover {
+    transform: scale(1.125);
+    border-color: rgba(255, 255, 255, 0.9);
+    color: #103C45;
+    filter: drop-shadow(0 10px 5px rgba(0, 0, 0, 0.125));
+    transition: all .3s ease;
+  }
+
+  @media (max-width: 576px) {
+    .card-veiculo {
+      width: 100%;
+      max-width: none;
+      margin-left: 0;
+    }
+
+    .card-veiculo img {
+      height: 150px;
+    }
+
+    .card-veiculo .card-body {
+      padding: 5px;
+    }
+
+    .card-veiculo h5 {
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+
+    .card-veiculo span {
+      font-size: 12px;
+    }
+
+    .btn {
+      padding: 8px 18px;
+      font-size: 10px;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block conteudo %}
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <h2>Dar Lance</h2>
+    <form method="post" action="/realizar_lance/{{carro.id}}" >
+      <div class="form-group">
+        <label for="valor">Valor do Lance:</label>
+        <input type="number" step="0.01" min="0.01" name="valor" id="valor" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Dar Lance</button>
+    </form>
+  </div>
+</div>
+{% block js %}
+<script>
+  // Scripts adicionais, se necessário
+</script>
+{% endblock %}
+{% endblock %}
+
+

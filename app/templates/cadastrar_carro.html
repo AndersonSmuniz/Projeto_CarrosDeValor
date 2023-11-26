@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Título de Teste
+{% endblock %}
+
+{% block css %}
+<style>
+  /* Estilos CSS omitidos por brevidade */
+</style>
+{% endblock %}
+
+{% block conteudo %}
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Cadastrar Carro - Parte 1/2</h5>
+        <form {% if carro %} action="/atualizar_carro/{{carro.id}}" {% else %} action="/cadastrar_carro" {% endif %} method="POST" enctype="multipart/form-data">
+          {% if carro %}
+          <input type="hidden" name="carro_id" value="{{ carro.id }}">
+          {% endif %}
+          <div class="form-group">
+            <label for="foto">Foto do Carro</label>
+            <input type="file" class="form-control-file" id="foto" name="imagem" onchange="loadPreview(this)">
+            <img id="foto-preview" src="" alt="Foto do Carro" class="preview-img" style="display: none; width: 300px;">
+            {% if carro %}
+            <img
+              src="{% if carro.imagem %}{{ url_for('static', filename=carro.imagem) }}{%else%} {{ url_for('static', filename='imagens/carropadrao.jpg') }}{%endif%}"
+              class="card-img-top" alt="Imagem do Veículo" style="display: none; width: 200px;">
+            {% endif %}
+          </div>
+          <div class="form-group">
+            <label for="modelo">Modelo</label>
+            <input type="text" class="form-control" id="modelo" name="modelo" {% if carro %}value="{{ carro.modelo }}"
+              {% endif %} required>
+          </div>
+          <div class="form-group">
+            <label for="ano">Ano</label>
+            <input type="number" name="ano" id="anoInput" placeholder="Ano" min="1900" max="2100" {% if carro
+              %}value="{{ carro.ano }}" {% endif %} required>
+          </div>
+          <div class="row">
+            <a href="/cancelar" class="btn fill col-4 mr-3" style="background-color: aliceblue !important;">Cancelar</a>
+            <button type="button" class="btn fill col-4" onclick="nextPage()">Próximo</button>
+            
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" id="second-page" style="display: none;">
+  <div class="col-md-6 offset-md-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Cadastrar Carro - Parte 2/2</h5>
+        <div class="form-group">
+          <label for="descricao">Descrição</label>
+          <textarea class="form-control" id="descricao" name="descricao"
+            required>{% if carro %}{{ carro.descricao }}{% endif %}</textarea>
+        </div>
+        <div class="form-group">
+          <label for="preco">Preço</label>
+          <input type="number" step="0.01" class="form-control col-md-4" id="preco" name="preco" {% if carro
+            %}value="{{ carro.preco }}" {% endif %} required>
+        </div>
+        <div class="form-group">
+          <label for="negociavel">Negociável</label>
+          <select class="form-control" id="negociavel" name="negociavel" required>
+            <option value="TRUE" {% if carro and carro.negociavel %}selected{% endif %}>Sim</option>
+            <option value="FALSE" {% if carro and not carro.negociavel %}selected{% endif %}>Não</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="tempo_duracao">Tempo de Duração (em horas)</label>
+          <input type="number" class="form-control col-2" id="tempo_duracao" name="tempo_duracao" {% if carro
+            %}value="{{ carro.tempo_duracao }}" {% endif %} required>
+        </div>
+
+        <button type="button" class="btn fill col-4 mr-3" style="background-color: aliceblue !important;" onclick="prevPage()">Voltar</button>
+        <button type="submit" class="btn fill col-4 ">Salvar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% block js %}
+<script>
+
+  function loadPreview(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('#foto-preview').attr('src', e.target.result);
+        $('#foto-preview').css('display', 'block');
+      }
+
+      reader.readAsDataURL(input.files[0]);
+    } else {
+      $('#foto-preview').attr('src', '');
+      $('#foto-preview').css('display', 'none');
+    }
+  }
+
+  function nextPage() {
+    $('#second-page').show();
+    $('form:first').hide();
+  }
+
+  function prevPage() {
+    $('#second-page').hide();
+    $('form:first').show();
+  }
+</script>
+{% endblock %}
+{% endblock %}

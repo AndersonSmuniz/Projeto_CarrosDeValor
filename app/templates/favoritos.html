@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Título de Teste
+{% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block conteudo %}
+<h2>Meus Carros Favoritos</h2>
+
+  {% if carros_favoritos %}
+    <ul>
+      {% for carro in carros_favoritos %}
+        <li>
+          <a href="{{ url_for('exibir_carro', carro_id=carro.id) }}">{{ carro.modelo }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Nenhum carro favorito encontrado.</p>
+  {% endif %}
+{% endblock %}
+
+{% block js %}{% endblock %}

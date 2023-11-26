@@ -1,17 +1,46 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  Título de Teste
+Título de Teste
 {% endblock %}
 
-{% block css %}{% endblock %}
+{% block css %}
+
+{% endblock %}
 
 {% block conteudo %}
-
-  <h2>Título de Teste</h2>
-  
-  Teste conteúdo
-
+<div class="row">
+  {% for carro in carros %}
+  <div class="col-md-4">
+    <div class="card card-veiculo">
+      <img
+        src="{% if carro.imagem %}{{ url_for('static', filename=carro.imagem) }}{%else%} {{ url_for('static', filename='imagens/carropadrao.jpg') }}{%endif%}"
+        class="card-img-top" alt="Imagem do Veículo" >
+      <div class="card-body">
+        <div class="row">
+          <h5 class="col-9 card-veiculo">{{ carro.modelo }}</h5>
+          <span class="col-3"> Ano: {{carro.ano}}</span>
+        </div>
+        <div class="row pt-2">
+          <div class="col-6">
+            <span class="preco">R$ {{ carro.preco }}</span>
+          </div>
+          <div class="col-6 text-right">
+            <span class="{% if carro.negociavel %}negociavel{% else %}nao-negociavel{% endif %}">
+              {% if carro.negociavel %}Negociável{% else %}Não Negociável{% endif %}
+            </span>
+          </div>
+        </div>
+        <div class="row pt-2">
+          <div class="col-12 text-center">
+            <a href="/carro/{{carro.id}}" class="btn fill">Ver Veículo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}
 
 {% block js %}{% endblock %}

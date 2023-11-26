@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Meus Lances
+{% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  {% for lance in lances_dados %}
+    <div class="col-md-4">
+      <div class="card card-lance">
+        <div class="card-body">
+          <h5 class="card-title">Carro: {{ lance.carro.modelo }}</h5>
+          <p class="card-text">Valor do Lance: R$ {{ lance.valor }}</p>
+          <p class="card-text">Data do Lance: {{ lance.tempo_lance }}</p>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block js %}{% endblock %}
