@@ -5,7 +5,24 @@ Título de Teste
 {% endblock %}
 
 {% block css %}
-
+<style>
+  .vendido{
+    background-color: rgb(192, 236, 211);
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .inativo{
+    background-color: rgb(224, 210, 144)!important;
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+</style>
 {% endblock %}
 
 {% block conteudo %}
@@ -17,12 +34,13 @@ Título de Teste
 <div class="row">
   {% for carro in carros %}
   <div class="col-md-4" style="filter: drop-shadow(5px 7px 4px rgba(0, 0, 0, 0.25));">
-    <div class="card card-veiculo">
-      <img src="{% if carro.imagem %}{{ url_for('static', filename=carro.imagem) }}{%else%} {{ url_for('static', filename='imagens/carropadrao.jpg') }}{%endif%}"
-     class="card-img-top" alt="Imagem do Veículo" style="width: 100%; height: auto; max-height: 150px;">
+    <div class="card card-veiculo {% if carro.vendido %}vendido{% elif not carro.ativo %}inativo{% endif %}">
+      <img
+        src="{% if carro.imagem %}{{ url_for('static', filename=carro.imagem) }}{%else%} {{ url_for('static', filename='imagens/carropadrao.jpg') }}{%endif%}"
+        class="card-img-top" alt="Imagem do Veículo" style="width: 100%; height: auto; max-height: 150px;">
       <div class="card-body">
         <div class="row">
-          <h5 class="col-9 card-veiculo">{{ carro.modelo }}</h5>
+          <h5 class="col-9 card-veiculo">{{ carro.modelo }} </h5> {% if carro.vendido %}<span>Vendido</span>{% elif not carro.ativo %}<span>Inativo</span>{% endif %}<span>Vendido</span>
           <span class="col-3"> Ano: {{carro.ano}}</span>
         </div>
         <div class="row pt-2">
