@@ -8,12 +8,23 @@ import os
 from sqlalchemy import desc
 from datetime import datetime, timedelta
 from flask_bcrypt import Bcrypt
+from flask_sqlalchemy import SQLAlchemy
+import psycopg2
+
+
 
 app = Flask(__name__)
 
 CORS(app, origins="http://127.0.0.1:5001", allow_headers="*", supports_credentials=True)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///dados.db'
+# Configuração do Banco de Dados PostgreSQL
+# A URL de conexão deve ser configurada a partir da variável de ambiente fornecida pela Vercel
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://default:Y15XmLPcVhNQ@ep-restless-grass-55442772.us-east-1.postgres.vercel-storage.com:5432/verceldb'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
 app.config['SECRET_KEY'] = '1234'
+
+app.config['SQLALCHEMY_ECHO'] = True
 
 # Configurações para uploads
 app.config['UPLOAD_FOLDER'] = 'static\\imagens'
