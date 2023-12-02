@@ -91,6 +91,25 @@ Detalhes do Carro
     display: none;
   }
 
+  .favorito {
+    color: red;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 2rem;
+    background-color: transparent;
+    border: none;
+  }
+
+  .favorito:focus {
+    outline: none;
+    box-shadow: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    margin-left: 2rem;
+
+  }
+
   .contador-tempo {
     color: #E4878D;
   }
@@ -151,10 +170,10 @@ Detalhes do Carro
       <div class="row mt-2">
         <form action="/favoritar_carro/{{carro.id}}" method="get">
           <div class="row mt-2">
-            <button type="submit" id="btnFavorito" class="btn btn-outline-danger" {% if e_favorito %}disabled{% endif %}>
-                <i class="bi bi-heart"></i> {% if e_favorito %}Favorito{% else %}Adicionar aos Favoritos{% endif %}
+            <button type="submit" id="btnFavorito" class="favorito">
+              <i class="{% if e_favorito %}fas{% else %}far{% endif %} fa-heart"></i>
             </button>
-        </div>
+          </div>
         </form>
       </div>
       <div class="card-body">
@@ -210,7 +229,7 @@ Detalhes do Carro
         <input type="number" step="0.01" min="0.01" name="valor" id="valor" class="form-control" required>
       </div>
       <button type="submit" class="btn btn-primary">Dar Lance</button>
-      <button class="btn btn-danger">Cancelar</button>
+      <button id="btnCancelar" class="btn btn-danger">Cancelar</button>
     </form>
   </div>
 </div>
@@ -246,6 +265,14 @@ Detalhes do Carro
 
 {% block js %}
 <script>
+  document.getElementById('btnCancelar').addEventListener('click', function () {
+    cancelar();
+  });
+
+  function cancelar() {
+    document.getElementById('lance').style.display = 'none';
+  }
+
   function toggleFavorito(carroId) {
     fetch(`/favoritar_carro/${carroId}`, {
       method: 'GET',
@@ -277,9 +304,10 @@ Detalhes do Carro
 
       var formularioLance = document.getElementById('lance');
 
-      formularioLance.style.display = formularioLance.style.display === 'none' ? 'block' : 'none';
+      formularioLance.style.display = 'block';
     });
   });
+
 </script>
 {% endblock %}
 {% endblock %}

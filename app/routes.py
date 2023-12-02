@@ -232,6 +232,10 @@ def realizar_lance(carro_id):
         flash('Você não tem permissão para acessar este carro', 'danger')
         return redirect(url_for('index'))
 
+    if carro.vendido:
+        flash('Este carro já foi vendido.', 'danger')
+        return redirect(url_for('exibir_carro', carro_id=carro_id))
+    
     if not carro.negociavel:
         flash('Este carro não é negociável.', 'danger')
         return redirect(url_for('exibir_carro', carro_id=carro_id))
@@ -364,3 +368,4 @@ def vender_carro(carro):
 
 def e_favorito(carro):
     return Favorito.query.filter_by(usuario_id=current_user.id, carro_id=carro.id).first() is not None if current_user.is_authenticated else False
+
