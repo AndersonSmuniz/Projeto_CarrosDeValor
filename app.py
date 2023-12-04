@@ -183,7 +183,7 @@ def logout():
     return redirect(url_for('login_post'))
 
 
-########### Carro ##############
+########### Carro ##############     
 
 @app.route('/cadastrar_carro', methods=['GET', 'POST'])
 @login_required
@@ -191,7 +191,7 @@ def cadastrar_carro():
     if request.method == 'POST':
         modelo = request.form['modelo']
         ano = request.form['ano']
-        imagem = request.files['imagem']
+        imagem_link = request.form['imagem_link']
         descricao = request.form['descricao']
         preco = request.form['preco']
         negociavel = bool(request.form['negociavel'])
@@ -203,14 +203,8 @@ def cadastrar_carro():
         if not usuario:
             return redirect(url_for('login_post'))
 
-        if imagem and allowed_file(imagem.filename):
-            filename = secure_filename(imagem.filename)
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-
-            os.makedirs(os.path.dirname(file_path), exist_ok=True)
-            imagem.save(file_path)
-
-            carro = Carro(modelo=modelo, ano=ano, usuario=usuario, imagem='imagens/' + filename, descricao=descricao,
+        if imagem_link:
+            carro = Carro(modelo=modelo, ano=ano, usuario=usuario, imagem=imagem_link, descricao=descricao,
                           preco=preco, negociavel=negociavel, tempo_duracao=tempo_duracao)
         else:
             carro = Carro(modelo=modelo, ano=ano, usuario=usuario, imagem=None, descricao=descricao, preco=preco,
@@ -240,7 +234,7 @@ def atualizar_carro(carro_id):
     if request.method == 'POST':
         modelo = request.form['modelo']
         ano = request.form['ano']
-        nova_imagem = request.files['imagem']
+        nova_imagem_link = request.form['imagem_link']  # Mudança no campo para link da imagem
         descricao = request.form['descricao']
         preco = request.form['preco']
         negociavel = (request.form['negociavel'] == 'True')  # Converta para booleano
@@ -250,11 +244,8 @@ def atualizar_carro(carro_id):
             flash('Você não tem permissão para acessar este carro', 'danger')
             return redirect(url_for('minhas_vendas'))
 
-        if nova_imagem and allowed_file(nova_imagem.filename):
-            filename = secure_filename(nova_imagem.filename)
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], str(carro_id) + filename)
-            nova_imagem.save(file_path)
-            carro.imagem = 'imagens/' + str(carro_id) + filename
+        if nova_imagem_link:
+            carro.imagem = nova_imagem_link
 
         carro.modelo = modelo
         carro.ano = ano

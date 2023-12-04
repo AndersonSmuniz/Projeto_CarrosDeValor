@@ -16,17 +16,18 @@ Título de Teste
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">Cadastrar Carro - Parte 1/2</h5>
-        <form {% if carro %} action="/atualizar_carro/{{carro.id}}" {% else %} action="/cadastrar_carro" {% endif %} method="POST" enctype="multipart/form-data">
+        <form {% if carro %} action="/atualizar_carro/{{carro.id}}" {% else %} action="/cadastrar_carro" {% endif %}
+          method="POST" enctype="multipart/form-data">
           {% if carro %}
           <input type="hidden" name="carro_id" value="{{ carro.id }}">
           {% endif %}
           <div class="form-group">
             <label for="foto">Foto do Carro</label>
-            <input type="file" class="form-control-file" id="foto" name="imagem" onchange="loadPreview(this)">
+            <input type="text" class="form-control" id="foto" name="imagem_link" placeholder="Link da Imagem">
             <img id="foto-preview" src="" alt="Foto do Carro" class="preview-img" style="display: none; width: 300px;">
             {% if carro %}
             <img
-              src="{% if carro.imagem %}{{ url_for('static', filename=carro.imagem) }}{%else%} {{ url_for('static', filename='imagens/carropadrao.jpg') }}{%endif%}"
+              src="{{ carro.imagem }}"
               class="card-img-top" alt="Imagem do Veículo" style="display: none; width: 200px;">
             {% endif %}
           </div>
@@ -41,9 +42,10 @@ Título de Teste
               %}value="{{ carro.ano }}" {% endif %} required>
           </div>
           <div class="row">
-            <a href="/minhas_vendas" class="btn fill col-4 mr-3" style="background-color: aliceblue !important;">Cancelar</a>
+            <a href="/minhas_vendas" class="btn fill col-4 mr-3"
+              style="background-color: aliceblue !important;">Cancelar</a>
             <button type="button" class="btn fill col-4" onclick="nextPage()">Próximo</button>
-            
+
           </div>
       </div>
     </div>
@@ -78,7 +80,8 @@ Título de Teste
             %}value="{{ carro.tempo_duracao }}" {% endif %} required>
         </div>
 
-        <button type="button" class="btn fill col-4 mr-3" style="background-color: aliceblue !important;" onclick="prevPage()">Voltar</button>
+        <button type="button" class="btn fill col-4 mr-3" style="background-color: aliceblue !important;"
+          onclick="prevPage()">Voltar</button>
         <button type="submit" class="btn fill col-4 ">Salvar</button>
         </form>
       </div>
@@ -89,21 +92,27 @@ Título de Teste
 {% block js %}
 <script>
 
-  function loadPreview(input) {
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
+function loadPreview(input) {
+    var fotoInput = document.getElementById('foto');
+    var previewImage = document.getElementById('foto-preview');
+    var defaultImage = document.querySelector('.card-img-top');
 
-      reader.onload = function (e) {
-        $('#foto-preview').attr('src', e.target.result);
-        $('#foto-preview').css('display', 'block');
-      }
+    if (fotoInput.value) {
+        previewImage.src = fotoInput.value;
+        previewImage.style.display = 'block';
 
-      reader.readAsDataURL(input.files[0]);
+        if (defaultImage) {
+            defaultImage.style.display = 'none';
+        }
     } else {
-      $('#foto-preview').attr('src', '');
-      $('#foto-preview').css('display', 'none');
+        previewImage.src = '';
+        previewImage.style.display = 'none';
+
+        if (defaultImage) {
+            defaultImage.style.display = 'block';
+        }
     }
-  }
+}
 
   function nextPage() {
     $('#second-page').show();

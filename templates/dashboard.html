@@ -15,7 +15,7 @@ Título de Teste
   <div class="col-md-4">
     <div class="card card-veiculo">
       <img
-        src="{% if carro.imagem %}{{ url_for('static', filename=carro.imagem) }}{%else%} {{ url_for('static', filename='imagens/carropadrao.jpg') }}{%endif%}"
+        src="{% if carro.imagem %}{{ carro.imagem }}{% else %}https://static.vecteezy.com/system/resources/previews/000/269/806/original/sports-car-vector.jpg{% endif %}"
         class="card-img-top" alt="Imagem do Veículo">
       <div class="card-body">
         <div class="row">
